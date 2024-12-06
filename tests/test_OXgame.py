@@ -34,30 +34,30 @@ def test_turn():
 def test_status():
     game = OXGame()
     #縦が揃って勝利
-    game.board = [['x','-','-'],['x','-','-'],['x','-','-']]
-    assert game.check_status == "X wins"
-    game.board = [['-','x','-'],['-','x','-'],['-','x','-']]
-    assert game.check_status == "X wins"
-    game.board = [['-','-','x'],['-','-','x'],['-','-','x']]
-    assert game.check_status == "X wins"
+    game.board = [['X','-','-'],['X','-','-'],['X','-','-']]
+    assert game.check_game_status() == "X Wins"
+    game.board = [['-','X','-'],['-','X','-'],['-','X','-']]
+    assert game.check_game_status() == "X Wins"
+    game.board = [['-','-','X'],['-','-','X'],['-','-','X']]
+    assert game.check_game_status() == "X Wins"
     #横が揃って勝利
-    game.board = [['x','x','x'],['-','-','-'],['-','-','-']]
-    assert game.check_status == "X wins"
-    game.board = [['-','-','-'],['x','x','x'],['-','-','-']]
-    assert game.check_status == "X wins"
-    game.board = [['-','-','-'],['-','-','-'],['x','x','x']]
-    assert game.check_status == "X wins"
+    game.board = [['X','X','X'],['-','-','-'],['-','-','-']]
+    assert game.check_game_status() == "X Wins"
+    game.board = [['-','-','-'],['X','X','X'],['-','-','-']]
+    assert game.check_game_status() == "X Wins"
+    game.board = [['-','-','-'],['-','-','-'],['X','X','X']]
+    assert game.check_game_status() == "X Wins"
     #斜めが揃って勝利
-    game.board = [['x','-','-'],['-','x','-'],['-','-','x']]
-    assert game.check_status == "X wins"
-    game.board = [['-','-','x'],['-','x','-'],['x','-','-']]
-    assert game.check_status == "X wins"
+    game.board = [['X','-','-'],['-','X','-'],['-','-','X']]
+    assert game.check_game_status() == "X Wins"
+    game.board = [['-','-','X'],['-','X','-'],['X','-','-']]
+    assert game.check_game_status() == "X Wins"
     #引き分け
-    game.board = [['X', 'O', 'X'], ['X', 'X', 'O'], ['O', 'X', 'O']]
-    assert game.check_status == "DRAW"
+    game.board = [['X','O','X'],['X','X','O'],['O','X','O']]
+    assert game.check_game_status() == "DRAW"
     #継続
-    game.board = [['X', '-', 'X'], ['X', 'X', 'O'], ['O', 'X', 'O']]
-    assert game.check_status == 'Continue'
+    game.board = [['X','-','X'],['X','X','O'],['O','X','O']]
+    assert game.check_game_status() == 'Continue'
 
 
 
