@@ -13,3 +13,15 @@ def test_display_board(capsys):
     expected_output = "- - -\n- - -\n- - -\n"
     assert captured.out == expected_output
 
+def test_turn():
+    game = OXGame()
+
+    assert game.current_player == 'x'
+    assert game.make_move(0,0) == True  
+    assert game.board[0][0] == 'X'
+    assert game.current_player == 'O'
+    assert game.make_move(0,0) == True
+    assert game.board[1][1] == 'O'
+    assert game.current_player == 'X'
+
+    
