@@ -51,3 +51,18 @@ class OXGame:
                 return self.check_status
         self.check_status = "Continue"
         return self.check_status
+    
+    def reset_or_exit(self):
+        while True:
+            choice = input("Type 'reset' to restart or 'exit' to quit: ").lower()
+            if choice == 'reset':
+                self.__init__()
+                print("Shall We Play A Game ?")
+                return
+            elif choice == 'exit':
+                print("Bye !")
+                exit()
+            else:
+                print("Invalid input. You can choose 'reset' or 'exit'.")
+
+            
