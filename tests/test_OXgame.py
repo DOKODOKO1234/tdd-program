@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import patch
 from game.OX_game import OXGame
 
 def test_init_board():
@@ -59,6 +60,28 @@ def test_status():
     game.board = [['X','-','X'],['X','X','O'],['O','X','O']]
     assert game.check_game_status() == 'Continue'
 
+def test_reset_game():
+    game = OXGame()
+    game.board = [['X','O','X'],['X','X','O'],['O','X','O']]
+    game.current_player = 'O'
+    game.check_status = "DRAW"
+    game.game_over = True
+
+    with patch('builtins.input', side_effect = ['reset']):
+        game.reset_or_exit()
+        expected_board = [['-']*3 for _ in range (3)]
+        assert game.board == expected_board
+        assert game.current_player  == 'X'
+        assert game.check_status == "Continue"
+        assert game.game_over == False
+
+def test_exit_game():
+    game = OXGame()
+    with pytest.raises(SystemExit):
+        with patch('builtins.input', side_effect=['exit']):
+            game.reset_or_exit()
+
+            
 
 
 
