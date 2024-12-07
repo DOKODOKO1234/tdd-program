@@ -60,13 +60,26 @@ def test_status():
     game.board = [['X','-','X'],['X','X','O'],['O','X','O']]
     assert game.check_game_status() == 'Continue'
 
+
 def test_reset_game():
+    #引き分けの状態
     game = OXGame()
     game.board = [['X','O','X'],['X','X','O'],['O','X','O']]
     game.current_player = 'O'
     game.check_status = "DRAW"
     game.game_over = True
 
+    #勝敗結果を表示
+def test_game_status_display(capfd):
+    game = OXGame()
+    game.board = [['X','X','-'],['O','O','-'],['X','X','O']]
+    game.make_move(0,2)
+    captured = capfd.readouterr()
+    assert "X Wins" in captured.out
+    assert game.check_status == "X Wins"
+    assert game.game_over == True
+
+    #リセットできているか確認
     with patch('builtins.input', return_value='reset'):
         game.reset_or_exit()
         expected_board = [['-']*3 for _ in range (3)]
@@ -75,6 +88,7 @@ def test_reset_game():
         assert game.check_status == "Continue"
         assert game.game_over == False
 
+    #引き分けの状態
 def test_exit_game():
     game = OXGame()
     game.board = [['X','O','X'],['X','X','O'],['O','X','O']]
@@ -82,6 +96,7 @@ def test_exit_game():
     game.check_status = "DRAW"
     game.game_over = True
     
+    #正常に終了するか
     with patch('builtins.input', return_value='exit'):
         with pytest.raises(SystemExit):
             game.reset_or_exit()
