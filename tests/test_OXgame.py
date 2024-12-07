@@ -87,7 +87,6 @@ def test_game_status_display(capfd):
         assert game.current_player  == 'X'
         assert game.check_status == "Continue"
         assert game.game_over == False
-
     #引き分けの状態
 def test_exit_game():
     game = OXGame()
